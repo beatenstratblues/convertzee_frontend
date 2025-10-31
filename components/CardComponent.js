@@ -6,8 +6,10 @@ const CardComponent = ({ type, list }) => {
       <h1 className="text-2xl text-center">{type} Conversions</h1>
       <ul className="list-disc list-inside mt-4 space-y-2 px-4">
         {list.map((item) => (
-          <li>
-            <Link href={`/convert/${type.toLowerCase()}/${type.toLowerCase()}-to-${item.toLowerCase()}`}>
+          <li key={item}>
+            <Link
+              href={`/convert/${type.toLowerCase()}/${type.toLowerCase()}-to-${item.toLowerCase()}`}
+            >
               {type} to {item}
             </Link>
           </li>

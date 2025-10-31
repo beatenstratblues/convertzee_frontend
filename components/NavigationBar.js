@@ -8,7 +8,7 @@ const NavigationBar = () => {
 
   return (
     <nav className="border-b-3 border-[#d8d8d8] px-10 md:px-16 lg:px-44 py-4 bg-[#FFFFFF] flex justify-between items-center fixed w-full top-0 z-50">
-      <div className="text-2xl font-bold">ConvertZee</div>
+      <div className="text-2xl font-bold"><Link href="/">ConvertZee</Link></div>
 
       <button
         className="md:hidden text-gray-700"

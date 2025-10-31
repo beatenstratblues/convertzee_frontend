@@ -1,3 +1,4 @@
+import ConvertPageSelectorAndButton from "@/components/ConvertPageSelectorAndButton";
 import DropZone from "@/components/DropZone";
 
 const page = () => {
@@ -10,6 +11,8 @@ const page = () => {
         Easily convert images from one format to another online, safely!
       </p>
       <DropZone />
+      <p className="mt-5 text-center text-xs">Maximum file size should be 200 MB</p>
+      <ConvertPageSelectorAndButton />
     </div>
   );
 };

@@ -24,7 +24,7 @@ const DropZone = () => {
     <section
       className={`${
         isDragActive ? "bg-blue-100" : "bg-gray-50"
-      } mt-12 p-8 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-6/6 mx-auto md:w-4/6 lg:w-3/6`}
+      } mt-12 p-8 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-6/6 mx-auto md:w-4/6 lg:w-3/6 h-2/6 flex items-center justify-center`}
     >
       <div {...getRootProps()}>
         {acceptedFiles.length > 0 ? (

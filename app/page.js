@@ -12,7 +12,7 @@ const page = () => {
       </p>
       <DropZone />
       <p className="mt-5 text-center text-xs">Maximum file size should be 200 MB</p>
-      <ConvertPageSelectorAndButton />
+      <ConvertPageSelectorAndButton defaultOption={"jpg"} specificConversionPage={false}/>
     </div>
   );
 };

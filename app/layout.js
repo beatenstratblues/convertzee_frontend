@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         <header>
           <NavigationBar />
         </header>
-        <main className="pt-20">{children}</main>
+        <main className="pt-20 mx-10 md:mx-16 lg:mx-44 h-screen">{children}</main>
       </body>
     </html>
   );

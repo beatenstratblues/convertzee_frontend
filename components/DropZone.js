@@ -25,6 +25,7 @@ const DropZone = ({ setUploadedUrl }) => {
       const data = await res.json();
       if (data.success) {
         setUploadedUrl(data.url);
+        console.log(data.url)
       } else {
         alert("Upload failed.");
       }

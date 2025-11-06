@@ -6,8 +6,30 @@ const ConvertPageSelectorAndButton = ({
   specificConversionPage,
   uploadedUrl,
 }) => {
-  function buttonHandler() {
-    console.log(uploadedUrl);
+  async function buttonHandler() {
+    const res = await fetch(`http://localhost:4000/api/convert/image`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        imageUrl: uploadedUrl,
+        targetFormat: specificConversionPage ? defaultOption : selectedOption,
+      }),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    // if (data.success) {
+    //   const downloadLink = document.createElement("a");
+    //   downloadLink.href = data.convertedUrl;
+    //   downloadLink.download = `converted.${
+    //     specificConversionPage ? defaultOption : selectedOption
+    //   }`;
+    //   document.body.appendChild(downloadLink);
+    //   downloadLink.click();
+    //   document.body.removeChild(downloadLink);
+    // } else {
+    //   alert("Conversion failed.");
+    // }
   }
   const [selectedOption, setSelectedOption] = useState(defaultOption || "jpg");
   return (

@@ -1,11 +1,36 @@
 "use client";
 import { useDropzone } from "react-dropzone";
+import { useState } from "react";
 
-function onDrop(acceptedFiles) {
-  console.log(acceptedFiles);
-}
+const DropZone = ({ setUploadedUrl }) => {
+  const [uploading, setUploading] = useState(false);
 
-const DropZone = () => {
+  const onDrop = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const base64 = reader.result;
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ file: base64 }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setUploadedUrl(data.url);
+      } else {
+        alert("Upload failed.");
+      }
+      setUploading(false);
+    };
+  };
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
     useDropzone({
       onDrop,

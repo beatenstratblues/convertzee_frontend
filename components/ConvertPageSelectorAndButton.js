@@ -4,7 +4,11 @@ import { useState } from "react";
 const ConvertPageSelectorAndButton = ({
   defaultOption,
   specificConversionPage,
+  uploadedUrl,
 }) => {
+  function buttonHandler() {
+    console.log(uploadedUrl);
+  }
   const [selectedOption, setSelectedOption] = useState(defaultOption || "jpg");
   return (
     <div className="flex justify-center items-center mt-6">
@@ -21,7 +25,10 @@ const ConvertPageSelectorAndButton = ({
           <option value="webp">WEBP</option>
         </select>
       )}
-      <button className="ml-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-50">
+      <button
+        className="ml-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-50"
+        onClick={buttonHandler}
+      >
         Convert to {selectedOption.toUpperCase()}
       </button>
     </div>

@@ -1,5 +1,4 @@
 import CompressButton from "@/components/CompressButton";
-import ConvertPageSelectorAndButton from "@/components/ConvertPageSelectorAndButton";
 import DropZone from "@/components/DropZone";
 
 const page = () => {

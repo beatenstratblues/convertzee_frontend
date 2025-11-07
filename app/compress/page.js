@@ -1,5 +1,4 @@
-import CompressButton from "@/components/CompressButton";
-import DropZone from "@/components/DropZone";
+import CompressionMainUploadComponent from "@/components/CompressionMainUploadComponent";
 
 const page = () => {
   return (
@@ -10,9 +9,7 @@ const page = () => {
       <p className="text-center mt-3 md:text-xl">
         Easily compress images online, safely!
       </p>
-      <DropZone />
-      <p className="mt-5 text-center text-xs">Maximum file size should be 200 MB</p>
-      <CompressButton />
+      <CompressionMainUploadComponent/>
     </div>
   );
 };

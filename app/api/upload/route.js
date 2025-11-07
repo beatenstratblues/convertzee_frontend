@@ -3,11 +3,19 @@ import cloudinary from "../../../configs/Cloudinary";
 
 export async function POST(req) {
   try {
-    const { file } = await req.json();
+    const formData = await req.formData();
+    const file = formData.get("file");
 
-    const uploadResponse = await cloudinary.uploader.upload(file, {
+    let imageBuffer = Buffer.from(await file.arrayBuffer());
+
+    let base64String = imageBuffer.toString("base64");
+
+    let dataURI = `data:${file.type};base64,${base64String}`;
+
+    const uploadResponse = await cloudinary.uploader.upload(dataURI, {
       folder: "raw",
     });
+
 
     return NextResponse.json({
       success: true,

@@ -12,30 +12,26 @@ const DropZone = ({ setUploadedUrl }) => {
 
     const localPreview = URL.createObjectURL(file);
     setPreviewUrl(localPreview);
-
     setUploading(true);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = async () => {
-      const base64 = reader.result;
+    const formData = new FormData();
+    formData.append("file", file);
 
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ file: base64 }),
-      });
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      const data = await res.json();
-      if (data.success) {
-        setUploadedUrl(data.url);
-        setPreviewUrl(data.url); 
-      } else {
-        alert("Upload failed.");
-      }
-      setUploading(false);
-    };
+    const data = await res.json();
+    if (data.success) {
+      setUploadedUrl(data.url);
+      setPreviewUrl(data.url);
+    } else {
+      alert("Upload failed.");
+    }
+    setUploading(false);
   };
+
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
     useDropzone({
       onDrop,

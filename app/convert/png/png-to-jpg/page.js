@@ -1,6 +1,4 @@
-import React from 'react'
-import ConvertPageSelectorAndButton from "@/components/ConvertPageSelectorAndButton";
-import DropZone from "@/components/DropZone";
+import MainUploadComponent from "@/components/MainUploadComponent";
 
 const page = () => {
   return (
@@ -11,9 +9,10 @@ const page = () => {
       <p className="text-center mt-3 md:text-xl">
         Easily convert images from one format to another online, safely!
       </p>
-      <DropZone />
-      <p className="mt-5 text-center text-xs">Maximum file size should be 200 MB</p>
-      <ConvertPageSelectorAndButton defaultOption={"JPG"} specificConversionPage={true}/>
+      <MainUploadComponent
+        defaultOption={"jpg"}
+        specificConversionPage={true}
+      />
     </div>
   );
 };

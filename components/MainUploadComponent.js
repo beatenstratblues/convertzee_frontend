@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ConvertPageSelectorAndButton from "@/components/ConvertPageSelectorAndButton";
 import DropZone from "@/components/DropZone";
 
-const MainUploadComponent = () => {
+const MainUploadComponent = ({defaultOption, specificConversionPage}) => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   return (
     <div className="h-full">
@@ -12,8 +12,8 @@ const MainUploadComponent = () => {
         Maximum file size should be 200 MB
       </p>
       <ConvertPageSelectorAndButton
-        defaultOption={"jpg"}
-        specificConversionPage={false}
+        defaultOption={defaultOption}
+        specificConversionPage={specificConversionPage}
         uploadedUrl={uploadedUrl}
       />
     </div>

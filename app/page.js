@@ -1,6 +1,5 @@
 import MainUploadComponent from "@/components/MainUploadComponent";
 
-
 const page = () => {
   return (
     <div className="h-full">
@@ -10,7 +9,10 @@ const page = () => {
       <p className="text-center mt-3 md:text-xl">
         Easily convert images from one format to another online, safely!
       </p>
-      <MainUploadComponent/>
+      <MainUploadComponent
+        defaultOption={"jpg"}
+        specificConversionPage={false}
+      />
     </div>
   );
 };

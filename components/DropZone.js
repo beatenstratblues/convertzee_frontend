@@ -4,10 +4,14 @@ import { useState } from "react";
 
 const DropZone = ({ setUploadedUrl }) => {
   const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     if (!file) return;
+
+    const localPreview = URL.createObjectURL(file);
+    setPreviewUrl(localPreview);
 
     setUploading(true);
 
@@ -25,7 +29,7 @@ const DropZone = ({ setUploadedUrl }) => {
       const data = await res.json();
       if (data.success) {
         setUploadedUrl(data.url);
-        console.log(data.url)
+        setPreviewUrl(data.url); 
       } else {
         alert("Upload failed.");
       }
@@ -50,9 +54,10 @@ const DropZone = ({ setUploadedUrl }) => {
     <section
       className={`${
         isDragActive ? "bg-blue-100" : "bg-gray-50"
-      } mt-12 p-8 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-6/6 mx-auto md:w-4/6 lg:w-3/6 h-2/6 flex items-center justify-center`}
+      } mt-12 p-8 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-6/6 mx-auto md:w-4/6 lg:w-3/6 h-2/6 flex flex-col items-center justify-center `}
     >
       <div {...getRootProps()}>
+        <input {...getInputProps()} />
         {acceptedFiles.length > 0 ? (
           <aside className="mt-4">
             <h4 className="font-semibold">Selected file:</h4>
@@ -69,8 +74,25 @@ const DropZone = ({ setUploadedUrl }) => {
         ) : (
           <p>Drag & drop files here, or click to select files</p>
         )}
-        <input {...getInputProps()} />
       </div>
+
+      {previewUrl && (
+        <div className="mt-6">
+          <img
+            src={previewUrl}
+            alt="Preview"
+            className={`mx-auto rounded-lg transition-all duration-500 ${
+              uploading ? "opacity-60 blur-sm" : "opacity-100"
+            }`}
+            width={50}
+          />
+          {uploading && (
+            <p className="text-blue-600 mt-2 animate-pulse">
+              Uploading to Cloudinary...
+            </p>
+          )}
+        </div>
+      )}
     </section>
   );
 };

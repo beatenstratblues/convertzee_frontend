@@ -17,19 +17,24 @@ const ConvertPageSelectorAndButton = ({
     });
 
     const data = await res.json();
-    console.log(data);
-    // if (data.success) {
-    //   const downloadLink = document.createElement("a");
-    //   downloadLink.href = data.convertedUrl;
-    //   downloadLink.download = `converted.${
-    //     specificConversionPage ? defaultOption : selectedOption
-    //   }`;
-    //   document.body.appendChild(downloadLink);
-    //   downloadLink.click();
-    //   document.body.removeChild(downloadLink);
-    // } else {
-    //   alert("Conversion failed.");
-    // }
+    if (data.status == 200) {
+      const imageFetch = await fetch(data.convertedImageUrl);
+      const imageBlob = await imageFetch.blob();
+      const blobUrl = URL.createObjectURL(imageBlob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = `converted.${
+        specificConversionPage ? defaultOption : selectedOption
+      }`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+      console.log(imageFetch);
+    } else {
+      alert("Conversion failed.");
+    }
   }
   const [selectedOption, setSelectedOption] = useState(defaultOption || "jpg");
   return (

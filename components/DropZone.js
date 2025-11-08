@@ -74,7 +74,7 @@ const DropZone = ({ setUploadedUrl }) => {
         )}
         <input {...getInputProps()} />
       </div>
-      {uploading && <UploadLoadingBarComponent />}
+      {uploading && <UploadLoadingBarComponent progress={80} />}
     </div>
   );
 };

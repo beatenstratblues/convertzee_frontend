@@ -1,9 +1,10 @@
 "use client";
 import { useDropzone } from "react-dropzone";
 import { useState } from "react";
+import UploadLoadingBarComponent from "./UploadLoadingBarComponent";
 
 const DropZone = ({ setUploadedUrl }) => {
-  const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState("");
 
   const onDrop = async (acceptedFiles) => {
@@ -47,49 +48,34 @@ const DropZone = ({ setUploadedUrl }) => {
     });
 
   return (
-    <section
+    <div
       className={`${
         isDragActive ? "bg-blue-100" : "bg-gray-50"
-      } mt-12 p-8 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-6/6 mx-auto md:w-4/6 lg:w-3/6 h-2/6 flex flex-col items-center justify-center `}
+      } mt-12 border-2 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-full mx-auto md:w-4/6 lg:w-3/6 h-2/6 flex flex-col justify-center overflow-hidden`}
+      {...getRootProps()}
     >
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {acceptedFiles.length > 0 ? (
-          <aside className="mt-4">
-            <h4 className="font-semibold">Selected file:</h4>
-            <ul>
-              {acceptedFiles.map((file) => (
-                <li key={file.path}>
-                  {file.path} - {(file.size / 1024).toFixed(2)} KB
-                </li>
-              ))}
-            </ul>
-          </aside>
-        ) : isDragActive ? (
+      <div className="flex-1 flex flex-col justify-center p-2">
+        {isDragActive ? (
           <p>Drop the files here ...</p>
-        ) : (
+        ) : acceptedFiles.length > 0 ? null : (
           <p>Drag & drop files here, or click to select files</p>
         )}
+        {previewUrl && (
+          <div className="border-2">
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className={`mx-auto rounded-lg transition-all duration-500 ${
+                uploading ? "opacity-60 blur-sm" : "opacity-100"
+              }`}
+              width={70}
+            />
+          </div>
+        )}
+        <input {...getInputProps()} />
       </div>
-
-      {previewUrl && (
-        <div className="mt-6">
-          <img
-            src={previewUrl}
-            alt="Preview"
-            className={`mx-auto rounded-lg transition-all duration-500 ${
-              uploading ? "opacity-60 blur-sm" : "opacity-100"
-            }`}
-            width={50}
-          />
-          {uploading && (
-            <p className="text-blue-600 mt-2 animate-pulse">
-              Uploading to Cloudinary...
-            </p>
-          )}
-        </div>
-      )}
-    </section>
+      {uploading && <UploadLoadingBarComponent />}
+    </div>
   );
 };
 

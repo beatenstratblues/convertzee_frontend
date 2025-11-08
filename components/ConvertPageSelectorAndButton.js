@@ -7,7 +7,7 @@ const ConvertPageSelectorAndButton = ({
   uploadedUrl,
 }) => {
   async function buttonHandler() {
-    const res = await fetch(`${BACKEND_URL}/api/convert/image`, {
+    const res = await fetch(`http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/convert/image`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -31,7 +31,6 @@ const ConvertPageSelectorAndButton = ({
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
-      console.log(imageFetch);
     } else {
       alert("Conversion failed.");
     }

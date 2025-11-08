@@ -2,7 +2,7 @@
 
 const CompressButton = ({ uploadedUrl }) => {
   async function buttonHandler() {
-    const res = await fetch(`${BACKEND_URL}/api/compress/image`, {
+    const res = await fetch(`http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/compress/image`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

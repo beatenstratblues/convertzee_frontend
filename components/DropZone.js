@@ -6,6 +6,7 @@ import UploadLoadingBarComponent from "./UploadLoadingBarComponent";
 const DropZone = ({ setUploadedUrl }) => {
   const [uploading, setUploading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -18,19 +19,36 @@ const DropZone = ({ setUploadedUrl }) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
+    const xhr = new XMLHttpRequest();
+
+    xhr.upload.addEventListener("progress", (event) => {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100);
+        setUploadProgress(percent);
+      }
     });
 
-    const data = await res.json();
-    if (data.success) {
-      setUploadedUrl(data.url);
-      setPreviewUrl(data.url);
-    } else {
-      alert("Upload failed.");
-    }
-    setUploading(false);
+    xhr.upload.addEventListener("load", () => {
+      setUploadProgress(100);
+    });
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        setUploading(false);
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          if (data.success) {
+            setUploadedUrl(data.url);
+            setPreviewUrl(data.url);
+          } else {
+            alert("Upload failed.");
+          }
+        }
+      }
+    };
+
+    xhr.open("POST", "/api/upload");
+    xhr.send(formData);
   };
 
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
@@ -61,7 +79,7 @@ const DropZone = ({ setUploadedUrl }) => {
           <p>Drag & drop files here, or click to select files</p>
         )}
         {previewUrl && (
-          <div className="border-2">
+          <div>
             <img
               src={previewUrl}
               alt="Preview"
@@ -74,7 +92,7 @@ const DropZone = ({ setUploadedUrl }) => {
         )}
         <input {...getInputProps()} />
       </div>
-      {uploading && <UploadLoadingBarComponent progress={80} />}
+      {uploading && <UploadLoadingBarComponent progress={uploadProgress} />}
     </div>
   );
 };

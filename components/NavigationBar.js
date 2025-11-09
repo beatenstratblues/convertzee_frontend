@@ -7,7 +7,7 @@ const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="border-b-3 border-[#d8d8d8] px-10 md:px-16 lg:px-44 py-4 bg-[#FFFFFF] flex justify-between items-center fixed w-full top-0 z-50">
+    <nav className="bg-[#F9FCFE] drop-shadow-md px-10 md:px-16 lg:px-44 py-4 flex justify-between items-center fixed w-full top-0 z-50">
       <div className="text-2xl font-bold"><Link href="/">ConvertZee</Link></div>
 
       <button
@@ -17,7 +17,7 @@ const NavigationBar = () => {
         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      <div className="hidden md:flex relative gap-10 text-lg font-medium items-center">
+      <div className="hidden md:flex relative gap-10 text-lg items-center font-bod">
         <Link href="/convert">
           <button className="cursor-pointer hover:text-gray-700">
             Convert

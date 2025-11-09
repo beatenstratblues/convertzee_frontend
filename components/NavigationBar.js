@@ -20,7 +20,7 @@ const NavigationBar = () => {
         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      <div className="hidden md:flex relative gap-10 text-lg items-center font-bod">
+      <div className="hidden md:flex relative gap-3 text-lg items-center font-bod">
         {[
           ["Convert", "/convert"],
           ["Compress", "/compress"],
@@ -41,7 +41,7 @@ const NavigationBar = () => {
         <button className="border-2 p-1 w-20 rounded-lg">
           <Link href="/authentication/login">Log in</Link>
         </button>
-        <button className="border-2 p-1 w-20 rounded-lg">
+        <button className="p-1 w-20 rounded-lg text-white bg-blue-500 hover:bg-blue-600">
           <Link href="/authentication/signup">Sign Up</Link>
         </button>
       </div>

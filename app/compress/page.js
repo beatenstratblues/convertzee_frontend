@@ -1,14 +1,15 @@
 import CompressionMainUploadComponent from "@/components/CompressionMainUploadComponent";
+import PageHeroAndSubtextComponent from "@/components/PageHeroAndSubtextComponent";
 
 const page = () => {
   return (
     <div className="h-full">
-      <h1 className="text-4xl text-center pt-10 md:text-6xl md:pt-15">
-        Image Compressor
-      </h1>
-      <p className="text-center mt-3 md:text-xl">
-        Easily compress images online, safely!
-      </p>
+      <PageHeroAndSubtextComponent
+        heading={"Image Compressor"}
+        subtext={
+          "Easily compress images online, safely!"
+        }
+      />
       <CompressionMainUploadComponent/>
     </div>
   );

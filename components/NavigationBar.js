@@ -1,14 +1,17 @@
 "use client";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import NavMenuButtons from "./NavMenuButtons";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="bg-[#F9FCFE] drop-shadow-md px-10 md:px-16 lg:px-44 py-4 flex justify-between items-center fixed w-full top-0 z-50">
-      <div className="text-2xl font-bold"><Link href="/">ConvertZee</Link></div>
+      <div className="text-2xl font-bold">
+        <Link href="/">ConvertZee</Link>
+      </div>
 
       <button
         className="md:hidden text-gray-700"
@@ -18,22 +21,20 @@ const NavigationBar = () => {
       </button>
 
       <div className="hidden md:flex relative gap-10 text-lg items-center font-bod">
-        <Link href="/convert">
-          <button className="cursor-pointer hover:text-gray-700">
-            Convert
-          </button>
-        </Link>
-        <Link href="/compress">
-          <button className="cursor-pointer hover:text-gray-700">
-            Compress
-          </button>
-        </Link>
-        <Link href="/apis">
-          <button className="cursor-pointer hover:text-gray-700">API</button>
-        </Link>
-        <Link href="/prices">
-          <button className="cursor-pointer hover:text-gray-700">Prices</button>
-        </Link>
+        {[
+          ["Convert", "/convert"],
+          ["Compress", "/compress"],
+          ["API", "/apis"],
+          ["Prices", "/prices"],
+        ].map((element) => {
+          return (
+            <NavMenuButtons
+              key={element[0]}
+              option={element[0]}
+              link={element[1]}
+            />
+          );
+        })}
       </div>
 
       <div className="hidden md:flex gap-4">

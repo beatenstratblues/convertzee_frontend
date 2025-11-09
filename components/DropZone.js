@@ -68,8 +68,8 @@ const DropZone = ({ setUploadedUrl }) => {
   return (
     <div
       className={`${
-        isDragActive ? "bg-blue-100" : "bg-gray-50"
-      } mt-12 border-4 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-full mx-auto md:w-4/6 lg:w-3/6 h-50 flex flex-col justify-center overflow-hidden font-bod`}
+        isDragActive ? "bg-blue-100" : "bg-[#FFFFFF]"
+      } mt-12 border-4 border-dashed border-gray-400 rounded-lg text-center cursor-pointer w-full mx-auto md:w-4/6 lg:w-3/6 h-50 flex flex-col justify-center overflow-hidden font-bod shadow-xl`}
       {...getRootProps()}
     >
       <div className="flex-1 flex flex-col justify-center p-2">

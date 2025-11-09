@@ -1,14 +1,15 @@
 import MainUploadComponent from "@/components/MainUploadComponent";
+import PageHeroAndSubtextComponent from "@/components/PageHeroAndSubtextComponent";
 
 const page = () => {
   return (
     <div className="h-full">
-      <h1 className="text-4xl text-center pt-10 md:text-6xl md:pt-15 font-head font-bold">
-        Image Converter
-      </h1>
-      <p className="text-center mt-3 md:text-xl font-bod">
-        Easily convert images from one format to another online, safely!
-      </p>
+      <PageHeroAndSubtextComponent
+        heading={"Image Converter"}
+        subtext={
+          "Easily convert images from one format to another online, safely!"
+        }
+      />
       <MainUploadComponent
         defaultOption={"jpg"}
         specificConversionPage={false}

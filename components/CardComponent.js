@@ -8,7 +8,7 @@ const CardComponent = ({ type, list }) => {
         {list.map((item) => (
           <li key={item}>
             <Link
-              href={`/convert/${type.toLowerCase()}/${type.toLowerCase()}-to-${item.toLowerCase()}`}
+              href={`/convert/${type.toLowerCase()}/${item.toLowerCase()}`}
             >
               {type} to {item}
             </Link>

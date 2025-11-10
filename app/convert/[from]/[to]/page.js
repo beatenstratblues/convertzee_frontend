@@ -2,7 +2,7 @@ import MainUploadComponent from "@/components/MainUploadComponent";
 import PageHeroAndSubtextComponent from "@/components/PageHeroAndSubtextComponent";
 
 const page = async ({ params }) => {
-    const {from, to} = await params;
+  const { from, to } = await params;
   return (
     <div className="h-full">
       <PageHeroAndSubtextComponent
@@ -11,10 +11,7 @@ const page = async ({ params }) => {
           "Easily convert images from one format to another online, safely!"
         }
       />
-      <MainUploadComponent
-        defaultOption={to}
-        specificConversionPage={true}
-      />
+      <MainUploadComponent defaultOption={to} specificConversionPage={true} />
     </div>
   );
 };

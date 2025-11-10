@@ -1,3 +1,4 @@
+import LoaderComponent from "@/components/LoaderComponent";
 import MainUploadComponent from "@/components/MainUploadComponent";
 import PageHeroAndSubtextComponent from "@/components/PageHeroAndSubtextComponent";
 

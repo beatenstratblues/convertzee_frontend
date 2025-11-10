@@ -1,4 +1,5 @@
 "use client";
+import { useConversionStore } from "@/state/stateStore";
 import { useState } from "react";
 
 const ConvertPageSelectorAndButton = ({
@@ -7,21 +8,24 @@ const ConvertPageSelectorAndButton = ({
   uploadedUrl,
 }) => {
   async function buttonHandler() {
-    const res = await fetch(`http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/convert/image`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        imageUrl: uploadedUrl,
-        targetFormat: specificConversionPage ? defaultOption : selectedOption,
-      }),
-    });
+    const res = await fetch(
+      `http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/convert/image`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageUrl: uploadedUrl,
+          targetFormat: specificConversionPage ? defaultOption : selectedOption,
+        }),
+      }
+    );
 
     const data = await res.json();
     if (data.status == 200) {
       const imageFetch = await fetch(data.convertedImageUrl);
+      setConvertedImageUrl(data.convertedImageUrl);
       const imageBlob = await imageFetch.blob();
       const blobUrl = URL.createObjectURL(imageBlob);
-
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = `converted.${
@@ -32,10 +36,13 @@ const ConvertPageSelectorAndButton = ({
       document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
     } else {
+      stopConversion();
       alert("Conversion failed.");
     }
   }
   const [selectedOption, setSelectedOption] = useState(defaultOption || "jpg");
+  const { startConversion, stopConversion, setConvertedImageUrl } =
+    useConversionStore();
   return (
     <div className="flex justify-center items-center mt-6">
       {!specificConversionPage && (
@@ -53,7 +60,10 @@ const ConvertPageSelectorAndButton = ({
       )}
       <button
         className="ml-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-50"
-        onClick={buttonHandler}
+        onClick={() => {
+          buttonHandler();
+          startConversion();
+        }}
       >
         Convert to {selectedOption.toUpperCase()}
       </button>
